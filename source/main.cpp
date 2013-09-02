@@ -1,22 +1,14 @@
 #include <iostream>
-#include "lua.hpp"
+#include "script/Lua.h"
 
 int main(int argc, char *argv[]) {
-  lua_State *L = lua_open();
+  Lua lua;
+  lua.OpenLibraries();
+  lua.LoadFile("scripts/test.lua");
 
-  luaL_openlibs(L);
-
-  int s = luaL_loadfile(L, "scripts/test.lua");
-
-  if (s == 0) {
-    s = lua_pcall(L, 0, LUA_MULTRET, 0);
-  } else {
-    std::cerr << "ERRROR: " << lua_tostring(L, -1) << std::endl;
-    lua_pop(L, 1);
-  }
+  lua.PCall();
 
   system("PAUSE");
 
-  lua_close(L);
   return 0;
 }

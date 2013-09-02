@@ -7,7 +7,7 @@ void testfunc();
 int get2();
 ]])
 
-local api = ffi.load("script")
+local api = ffi.load("bindings")
 
 api.testfunc()
 local two = api.get2()
