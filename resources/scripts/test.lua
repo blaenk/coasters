@@ -1,6 +1,15 @@
 print 'testing!'
 
-functions.testfunc()
-two = functions.get2()
+local ffi = require('ffi')
+
+ffi.cdef([[
+void testfunc();
+int get2();
+]])
+
+local api = ffi.load("script")
+
+api.testfunc()
+local two = api.get2()
 
 io.write('got ', two, '!\n')

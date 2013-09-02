@@ -8,7 +8,7 @@ add_subdirectory (script)
 # add_subdirectory (network)
 
 add_executable (coasters main.cpp)
-target_link_libraries (coasters ${LUAJIT_LIBRARIES} script)
+target_link_libraries (coasters ${LUAJIT_LIBRARIES})
 
 # for configuration dependent: $<CONFIGURATION>
 
