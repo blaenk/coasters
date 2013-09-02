@@ -1,7 +1,6 @@
 print 'testing!'
 
-testfunc()
-
-two = get2()
+functions.testfunc()
+two = functions.get2()
 
 io.write('got ', two, '!\n')
