@@ -8,9 +8,7 @@ if (WIN32)
 endif (WIN32)
 
 add_library (script STATIC ${SCRIPT_SRC})
-
-target_link_libraries (script ${LUAJIT_LIBRARIES})
+target_link_libraries (script ${LUA_LIBRARIES})
 
 # shared lib for bindings
-# TODO: should this be SHARED?
 add_library (bindings SHARED functions.cpp)

@@ -19,6 +19,14 @@ set (RESOURCES    ${PROJECT_SOURCE_DIR}/resources)
 if (NOT WIN32)
   set(CMAKE_C_COMPILER   "clang")
   set(CMAKE_CXX_COMPILER "clang++")
+
+  # C++11 goodness
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+  # Allow executable to find shared libraries
+  # in the same directory as the executable ($ORIGIN)
+  # this prevents having to install libraries to system-searchable paths
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,-rpath,$ORIGIN")
 endif (NOT WIN32)
 
 # find DirectX
@@ -38,19 +46,14 @@ endif (WIN32)
 
 # find luajit
 if (WIN32)
-  set (LUAJIT_LIBRARIES   ${DEPENDENCIES}/luajit/src/lua51.lib)
-  set (LUAJIT_DLL         ${DEPENDENCIES}/luajit/src/lua51.dll)
-  set (LUAJIT_INCLUDE_DIR ${DEPENDENCIES}/luajit/src)
-  set (LUAJIT_FOUND 1)
+  set (LUA_LIBRARIES   ${DEPENDENCIES}/luajit/src/lua51.lib)
+  set (LUA_DLL         ${DEPENDENCIES}/luajit/src/lua51.dll)
+  set (LUA_INCLUDE_DIR ${DEPENDENCIES}/luajit/src)
+  set (LUA_FOUND 1)
+  message (STATUS "Found LuaJIT")
 else (WIN32)
   find_package (LuaJIT)
 endif (WIN32)
-
-if (LUAJIT_FOUND)
-  message (STATUS "Found LuaJIT")
-else (LUAJIT_FOUND)
-  message (FATAL "LuaJit required but not found")
-endif (LUAJIT_FOUND)
 
 # dependencies
 # find_package (protobuf)
