@@ -1,12 +1,14 @@
 #include <iostream>
-#include "script/Lua.h"
+#include <memory>
+
+#include "platform/Application.h"
+#include "platform/ApplicationFactory.h"
 
 int main(int argc, char *argv[]) {
-  Lua lua;
-  lua.OpenLibraries();
-  lua.LoadFile("scripts/test.lua");
+  std::unique_ptr<Application> app = ApplicationFactory::CreateApplication();
 
-  lua.PCall();
+  app->Initialize();
+  app->Run();
 
   system("PAUSE");
 

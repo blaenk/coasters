@@ -14,6 +14,7 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 
 set (DEPENDENCIES ${PROJECT_SOURCE_DIR}/dependencies)
 set (RESOURCES    ${PROJECT_SOURCE_DIR}/resources)
+set (SOURCE       ${PROJECT_SOURCE_DIR}/source)
 
 # use clang on posix platforms
 if (NOT WIN32)
@@ -69,6 +70,7 @@ endif (WIN32)
 # set (LIBRARIES ${LIBRARIES} ${PORTAUDIO_LIBRARIES})
 
 # include_directories (${INCLUDES})
+include_directories (${SOURCE})
 # link_directories (${PORTAUDIO_LIBRARY_DIR})
 
 # link with a library
