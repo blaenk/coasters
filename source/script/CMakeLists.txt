@@ -11,4 +11,4 @@ add_library (script STATIC ${SCRIPT_SRC})
 target_link_libraries (script ${LUA_LIBRARIES})
 
 # shared lib for bindings
-add_library (bindings SHARED functions.cpp)
+add_library (bindings SHARED Bindings.cpp)

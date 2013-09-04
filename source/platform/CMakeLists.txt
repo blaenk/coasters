@@ -12,10 +12,6 @@ set (PLATFORM_SRC
      Application.cpp
      ApplicationFactory.cpp)
 
-# if (WIN32)
-#   set (PLATFORM_SRC ${PLATFORM_SRC} Application.h Windows.h)
-# endif ()
-
 # also CMAKE_SYSTEM_NAME is:
 #   Linux, Windows, Darwin
 
@@ -31,3 +27,4 @@ elseif (UNIX)
 endif ()
 
 add_library (platform STATIC ${PLATFORM_SRC})
+target_link_libraries (platform graphics)

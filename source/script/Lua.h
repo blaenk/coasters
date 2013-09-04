@@ -6,6 +6,9 @@
 
 #include "lua.hpp"
 
+namespace Coasters {
+namespace Script {
+
 class Lua {
 public:
     Lua();
@@ -18,4 +21,6 @@ private:
     std::unique_ptr<lua_State, decltype(lua_close) *> state;
 };
 
+} // Script
+} // Coasters
 #endif

@@ -1,7 +1,11 @@
 #include "Application.h"
 
-Application::Application() {
-}
+namespace Coasters {
+namespace Platform {
 
-Application::~Application() {
-}
+Application::Application() {}
+
+Application::~Application() {}
+
+} // Platform
+} // Coasters

@@ -10,11 +10,12 @@
 #include "LinuxApplication.h"
 #endif
 
-ApplicationFactory::ApplicationFactory() {
-}
+namespace Coasters {
+namespace Platform {
 
-ApplicationFactory::~ApplicationFactory() {
-}
+ApplicationFactory::ApplicationFactory() {}
+
+ApplicationFactory::~ApplicationFactory() {}
 
 std::unique_ptr<Application> ApplicationFactory::CreateApplication() {
   std::unique_ptr<Application> app;
@@ -29,3 +30,6 @@ std::unique_ptr<Application> ApplicationFactory::CreateApplication() {
 
   return app;
 }
+
+} // Platform
+} // Coasters

@@ -2,11 +2,12 @@
 
 #include <iostream>
 
-Lua::Lua() : state(luaL_newstate(), lua_close) {
-}
+namespace Coasters {
+namespace Script {
 
-Lua::~Lua() {
-}
+Lua::Lua() : state(luaL_newstate(), lua_close) {}
+
+Lua::~Lua() {}
 
 void Lua::OpenLibraries() {
   luaL_openlibs(state.get());
@@ -23,3 +24,6 @@ void Lua::PCall() {
     std::cerr << "ERROR: " << lua_tostring(state.get(), -1) << std::endl;
   }
 }
+
+} // Script
+} // Caosters

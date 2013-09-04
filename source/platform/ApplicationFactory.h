@@ -3,6 +3,9 @@
 
 #include <memory>
 
+namespace Coasters {
+namespace Platform {
+
 class Application;
 
 class ApplicationFactory {
@@ -12,5 +15,8 @@ public:
 
   static std::unique_ptr<Application> CreateApplication();
 };
+
+} // Platform
+} // Coasters
 
 #endif
