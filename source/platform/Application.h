@@ -9,8 +9,7 @@ public:
   Application();
   virtual ~Application();
 
-  virtual void Initialize() = 0;
-  virtual void Run() = 0;
+  virtual int Run() = 0;
 private:
 };
 

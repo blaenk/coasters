@@ -12,21 +12,6 @@ namespace Platform {
 
 WindowsApplication::WindowsApplication() : hWnd_(0), renderer_(nullptr) {
   this->renderer_ = new D3D11Renderer;
-}
-
-WindowsApplication::~WindowsApplication() {}
-
-LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-  switch (message) {
-  case WM_DESTROY:
-    PostQuitMessage(0);
-    return 0;
-  }
-
-  return DefWindowProc(hWnd, message, wParam, lParam);
-}
-
-void WindowsApplication::Initialize() {
   WNDCLASSEX wc;
   HINSTANCE hInstance = GetModuleHandle(NULL);
 
@@ -62,7 +47,22 @@ void WindowsApplication::Initialize() {
   this->renderer_->Initialize(this->hWnd_);
 }
 
-void WindowsApplication::Run() {
+WindowsApplication::~WindowsApplication() {}
+
+LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+  switch (message) {
+  case WM_DESTROY:
+    PostQuitMessage(0);
+    return 0;
+  }
+
+  return DefWindowProc(hWnd, message, wParam, lParam);
+}
+
+void WindowsApplication::Initialize() {
+}
+
+int WindowsApplication::Run() {
   MSG msg;
   while (TRUE) {
     if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
@@ -76,6 +76,8 @@ void WindowsApplication::Run() {
   }
 
   this->renderer_->ShutDown();
+
+  return 0;
 }
 
 } // Platform

@@ -14,8 +14,7 @@ public:
   WindowsApplication();
   ~WindowsApplication();
 
-  void Initialize() override;
-  void Run() override;
+  int Run() override;
 
 private:
   HWND hWnd_;

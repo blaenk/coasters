@@ -1,14 +1,15 @@
 #include "ApplicationFactory.h"
 
 #include "Application.h"
+#include "SDLApplication.h"
 
-#ifdef WIN32
-#include "WindowsApplication.h"
-#elif APPLE
-#include "MacApplication.h"
-#else
-#include "LinuxApplication.h"
-#endif
+// #ifdef WIN32
+// #include "WindowsApplication.h"
+// #elif APPLE
+// #include "MacApplication.h"
+// #else
+// #include "LinuxApplication.h"
+// #endif
 
 namespace Coasters {
 namespace Platform {
@@ -20,13 +21,15 @@ ApplicationFactory::~ApplicationFactory() {}
 std::unique_ptr<Application> ApplicationFactory::CreateApplication() {
   std::unique_ptr<Application> app;
 
-#ifdef WIN32
-  app.reset(new WindowsApplication);
-#elif APPLE
-  app.reset(new MacApplication);
-#elif UNIX
-  app.reset(new LinuxApplication);
-#endif
+  app.reset(new SDLApplication);
+
+// #ifdef WIN32
+//   app.reset(new WindowsApplication);
+// #elif APPLE
+//   app.reset(new MacApplication);
+// #elif UNIX
+//   app.reset(new LinuxApplication);
+// #endif
 
   return app;
 }

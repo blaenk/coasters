@@ -15,8 +15,8 @@ public:
   virtual ~ActorComponent();
 
   virtual bool Initialize() = 0;
-  virtual void PostInitialize();
-  virtual void Update(int delta);
+  virtual void PostInitialize() = 0;
+  virtual void Update(int delta) = 0;
 
   virtual std::string GetName() const = 0;
 

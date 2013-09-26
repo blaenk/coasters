@@ -18,8 +18,8 @@ set (PLATFORM_SRC
 if (WIN32)
   set (PLATFORM_SRC ${PLATFORM_SRC} Application.h
                                     ApplicationFactory.h
-                                    WindowsApplication.cpp
-                                    WindowsApplication.h)
+                                    SDLApplication.h
+                                    SDLApplication.cpp)
 elseif (APPLE)
   set (PLATFORM_SRC ${PLATFORM_SRC} MacApplication.cpp)
 elseif (UNIX)
@@ -27,4 +27,5 @@ elseif (UNIX)
 endif ()
 
 add_library (platform STATIC ${PLATFORM_SRC})
-target_link_libraries (platform graphics)
+target_link_libraries (platform graphics game)
+

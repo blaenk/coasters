@@ -1,19 +1,23 @@
 # add source files
 set (GAME_SRC
-     Engine.cpp
-     EngineComponent.cpp
-	 Actor.cpp
-	 ActorComponent.cpp
-	 Voxel.cpp)
+     Game.cpp
+     Camera.cpp
+     Actor.cpp
+     ActorComponent.cpp
+     MeshComponent.cpp
+     Chunk.cpp
+     World.cpp)
 
 # to show header files in msvc
 if (WIN32)
   set (GAME_SRC ${GAME_SRC}
-       Engine.h
-       EngineComponent.h
-	   Actor.h
-	   ActorComponent.h
-	   Voxel.h)
+       Game.h
+       Camera.h
+       Actor.h
+       ActorComponent.h
+       MeshComponent.h
+       Chunk.h
+       World.h)
 endif (WIN32)
 
 add_library (game STATIC ${GAME_SRC})
