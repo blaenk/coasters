@@ -5,9 +5,8 @@
 #include <SDL.h>
 
 #include "Application.h"
+#include "engine/Event.h"
 #include "engine/Engine.h"
-#include "graphics/GLRenderer.h"
-#include "game/Game.h"
 
 namespace Coasters {
 namespace Platform {
@@ -18,11 +17,12 @@ public:
   ~SDLApplication();
 
   int Run() override;
-  void ProcessEvents();
   void UpdateClock();
 
   void FSToggle();
   void BorderToggle();
+
+  void OnEvent(const Engine::Event &event) override;
 
 private:
   std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> window_;

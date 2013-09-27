@@ -4,13 +4,17 @@
 #include <memory>
 
 namespace Coasters {
-namespace Engine { class RendererEvent; }
+namespace Engine {
+  class Engine;
+  class Event; }
 namespace Graphics {
 
 class Renderer {
 public:
   virtual void Render() = 0;
-  virtual void OnEvent(std::shared_ptr<Engine::RendererEvent> event) = 0;
+  virtual void OnEvent(const Engine::Event& event) = 0;
+protected:
+  Engine::Engine *engine_;
 };
 
 } // Graphics

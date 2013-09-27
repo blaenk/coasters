@@ -5,10 +5,11 @@ include_directories (${GLEW_INCLUDE_DIR})
 include_directories (${OPENGL_INCLUDE_DIR})
 include_directories (${GLM_INCLUDE_DIR})
 
-add_subdirectory (engine)
-add_subdirectory (graphics)
+add_subdirectory (input)
 add_subdirectory (game)
+add_subdirectory (graphics)
 add_subdirectory (script)
+add_subdirectory (engine)
 add_subdirectory (platform)
 # add_subdirectory (sound)
 # add_subdirectory (physics)
@@ -24,7 +25,7 @@ else (WIN32)
   add_executable (coasters main.cpp)
 endif ()
 
-target_link_libraries (coasters engine game platform script ${SDL2_LIBRARY})
+target_link_libraries (coasters platform script ${SDL2_LIBRARY})
 
 if (WIN32)
   add_custom_command (TARGET coasters POST_BUILD

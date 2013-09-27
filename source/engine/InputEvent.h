@@ -1,20 +1,18 @@
-#ifndef RENDERER_EVENT_H
-#define RENDERER_EVENT_H
+#ifndef INPUT_EVENT_H
+#define INPUT_EVENT_H
 
 #include "Event.h"
 
 namespace Coasters {
 namespace Engine {
 
-class RendererEvent : public Event {
+class InputEvent : public Event {
 public:
   static enum class Subject : uint8_t {
-    MeshAdded,
-    MeshRemoved
   };
 
-  RendererEvent(Subject subject) :
-    Event(Event::Scope::Renderer),
+  InputEvent(Subject subject) :
+    Event(Event::Scope::Input),
     subject_(subject) {}
 
   Subject subject() const { return this->subject_; }

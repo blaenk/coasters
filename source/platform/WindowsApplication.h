@@ -15,6 +15,7 @@ public:
   ~WindowsApplication();
 
   int Run() override;
+  void OnEvent(const Event &event) override;
 
 private:
   HWND hWnd_;

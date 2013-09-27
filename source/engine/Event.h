@@ -13,14 +13,17 @@ namespace Engine {
 class Event {
 public:
   static enum class Scope : uint8_t {
-    Audio,
+    Application,
     Game,
+    Input,
     Renderer
   };
 
+  Event(Scope scope) : scope_(scope) {}
+
   Scope scope() const { return this->scope_; }
 
-  virtual ~Event();
+  virtual ~Event() {};
 private:
   Scope scope_;
 };

@@ -27,5 +27,5 @@ elseif (UNIX)
 endif ()
 
 add_library (platform STATIC ${PLATFORM_SRC})
-target_link_libraries (platform graphics game)
+target_link_libraries (platform engine)
 

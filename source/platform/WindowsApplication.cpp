@@ -59,6 +59,8 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
   return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
+void OnEvent(const Event &event) {}
+
 void WindowsApplication::Initialize() {
 }
 

@@ -8,7 +8,7 @@
 // renderer
 #include "Renderer.h"
 
-#include "engine/RendererEvent.h"
+#include "engine/Event.h"
 
 #include "game/Camera.h"
 #include "game/Chunk.h"
@@ -18,12 +18,12 @@ namespace Graphics {
 
 class GLRenderer : public Renderer {
 public:
-  GLRenderer();
+  GLRenderer(Engine::Engine *engine);
   ~GLRenderer();
 
   bool Initialize();
   void Render() override;
-  void OnEvent(std::shared_ptr<Engine::RendererEvent> event) override;
+  void OnEvent(const Engine::Event& event) override;
 
 private:
   Game::Chunk chunk_;

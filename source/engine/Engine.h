@@ -6,11 +6,13 @@
 #include <memory>
 #include <unordered_map>
 
+#include "platform/Application.h"
+
 // events
 #include "Event.h"
-#include "RendererEvent.h"
 
 // components
+#include "input/Input.h"
 #include "graphics/GLRenderer.h"
 #include "game/Game.h"
 
@@ -19,15 +21,17 @@ namespace Engine {
 
 class Engine {
 public:
-  Engine();
+  Engine(Platform::Application *application);
 
   void Engine::Initialize();
-  void Run(float lag);
-  void OnEvent(std::shared_ptr<Event> event);
+  void RunFrame(float lag);
+  void OnEvent(const Event &event);
 
 private:
-  std::unique_ptr<Coasters::Graphics::GLRenderer> renderer_;
-  std::unique_ptr<Coasters::Game::Game> game_;
+  Graphics::GLRenderer renderer_;
+  Game::Game game_;
+  Input::Input input_;
+  Platform::Application *application_;
 };
 
 } // Engine

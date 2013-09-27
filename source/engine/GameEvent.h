@@ -1,23 +1,24 @@
-#ifndef RENDERER_EVENT_H
-#define RENDERER_EVENT_H
+#ifndef GAME_EVENT_H
+#define GAME_EVENT_H
 
 #include "Event.h"
 
 namespace Coasters {
 namespace Engine {
 
-class RendererEvent : public Event {
+class GameEvent : public Event {
 public:
   static enum class Subject : uint8_t {
-    MeshAdded,
-    MeshRemoved
+    ActorDestroyed
   };
 
-  RendererEvent(Subject subject) :
-    Event(Event::Scope::Renderer),
+  GameEvent(Subject subject) :
+    Event(Event::Scope::Game),
     subject_(subject) {}
 
   Subject subject() const { return this->subject_; }
+
+  ~GameEvent() {}
 
 private:
   Subject subject_;

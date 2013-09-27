@@ -1,7 +1,6 @@
-#include "Renderer.h"
-
-#include "engine/RendererEvent.h"
 #include "GLRenderer.h"
+
+#include "engine/Engine.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -12,7 +11,10 @@
 namespace Coasters {
 namespace Graphics {
 
-GLRenderer::GLRenderer() : chunk_(16, 16, 16) {}
+GLRenderer::GLRenderer(Engine::Engine *engine) :
+  chunk_(16, 16, 16) {
+  engine_ = engine;
+}
 
 bool GLRenderer::Initialize() {
   glewExperimental = GL_TRUE;
@@ -117,14 +119,16 @@ GLRenderer::~GLRenderer() {
   glDeleteVertexArrays( 1, &vao );
 }
 
-void GLRenderer::OnEvent(std::shared_ptr<Engine::RendererEvent> event) {
-  switch (event->subject()) {
+void GLRenderer::OnEvent(const Engine::Event& event) {
+  /*
+  switch (event.subject()) {
     case Engine::RendererEvent::Subject::MeshAdded:
       // MeshEvent &mevent = static_cast<MeshEvent &>(event);
       break;
     case Engine::RendererEvent::Subject::MeshRemoved:
       break;
   }
+  */
 }
 
 void GLRenderer::Render() {

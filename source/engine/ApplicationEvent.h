@@ -1,20 +1,21 @@
-#ifndef RENDERER_EVENT_H
-#define RENDERER_EVENT_H
+#ifndef APPLICATION_EVENT_H
+#define APPLICATION_EVENT_H
 
 #include "Event.h"
 
 namespace Coasters {
 namespace Engine {
 
-class RendererEvent : public Event {
+class ApplicationEvent : public Event {
 public:
   static enum class Subject : uint8_t {
-    MeshAdded,
-    MeshRemoved
+    FullscreenToggle,
+    BorderToggle,
+    Quit
   };
 
-  RendererEvent(Subject subject) :
-    Event(Event::Scope::Renderer),
+  ApplicationEvent(Subject subject) :
+    Event(Event::Scope::Application),
     subject_(subject) {}
 
   Subject subject() const { return this->subject_; }
