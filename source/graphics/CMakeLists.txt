@@ -1,11 +1,10 @@
 # add source files
 set (GRAPHICS_SRC
-     Renderer.cpp
      GLRenderer.cpp
      GLRenderer.h)
 
 if (WIN32)
-  set (GRAPHICS_SRC ${GRAPHICS_SRC} Renderer.h)
+  # set (GRAPHICS_SRC ${GRAPHICS_SRC} Renderer.h)
 endif ()
 
 add_library (graphics STATIC ${GRAPHICS_SRC})

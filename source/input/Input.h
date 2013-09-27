@@ -16,7 +16,11 @@ namespace Input {
 
 class Input {
 public:
-  Input(Engine::Engine *engine);
+  Input();
+
+  void SetEngine(Engine::Engine *engine) {
+    engine_ = engine;
+  }
 
   void OnEvent(const Engine::Event &event);
   void Poll();

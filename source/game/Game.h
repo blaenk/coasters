@@ -13,7 +13,11 @@ namespace Game {
 
 class Game {
 public:
-  Game(Engine::Engine *engine, double interval);
+  Game(double interval);
+
+  void SetEngine(Engine::Engine *engine) {
+    engine_ = engine;
+  }
 
   void Update(double lag);
   double UpdateInterval();
@@ -33,10 +37,10 @@ private:
 
   double updateInterval_;
   std::unordered_map<Engine::GameEvent::Subject,
-                     std::vector<std::shared_ptr<Actor>>> handlers_;
+                     std::vector<std::shared_ptr<Entity>>> handlers_;
   std::unordered_map<Action, SDL_Keysym> keyBinds_;
   std::unordered_map<Action,
-                     std::vector<std::shared_ptr<ActorComponent>>> inputHandlers_;
+                     std::vector<std::shared_ptr<EntityComponent>>> inputHandlers_;
 };
 
 } // Game

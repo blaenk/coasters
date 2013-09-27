@@ -10,11 +10,13 @@
 namespace Coasters {
 namespace Engine {
 
-Engine::Engine(Platform::Application *application) :
-  game_(this, 120),
-  renderer_(this),
-  input_(this),
-  application_(application) {}
+Engine::Engine() :
+  game_(120),
+  application_(nullptr) {
+  renderer_.SetEngine(this);
+  input_.SetEngine(this);
+  game_.SetEngine(this);
+}
 
 void Engine::Initialize() {
   bool res = this->renderer_.Initialize();
@@ -22,7 +24,7 @@ void Engine::Initialize() {
 
 void ProcessEvents() {}
 
-void Engine::RunFrame(float lag) {
+void Engine::RunFrame(double lag) {
   //this->input_.Poll();
     // input_.events is queue of key events
   //this->game_.Update(lag, this->input_.events());
@@ -37,11 +39,10 @@ void Engine::RunFrame(float lag) {
 
 // add Event::Scope::Application and forward to parent?
 void Engine::OnEvent(const Event &event) {
-  printf("engine event\n");
-
   switch (event.scope()) {
     case Event::Scope::Application:
-      this->application_->OnEvent(event);
+      if (application_ != nullptr)
+        this->application_->OnEvent(event);
       break;
     case Event::Scope::Input:
       this->input_.OnEvent(event);

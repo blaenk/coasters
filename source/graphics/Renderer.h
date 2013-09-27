@@ -13,6 +13,9 @@ class Renderer {
 public:
   virtual void Render() = 0;
   virtual void OnEvent(const Engine::Event& event) = 0;
+  virtual void SetEngine(Engine::Engine *engine) final {
+    engine_ = engine;
+  }
 protected:
   Engine::Engine *engine_;
 };

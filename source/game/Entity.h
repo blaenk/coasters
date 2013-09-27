@@ -1,7 +1,7 @@
-#ifndef ACTOR_H
-#define ACTOR_H
+#ifndef ENTITY_H
+#define ENTITY_H
 
-#include "ActorComponent.h"
+#include "EntityComponent.h"
 
 #include <string>
 #include <memory>
@@ -10,17 +10,17 @@
 namespace Coasters {
 namespace Game {
 
-class Actor {
+class Entity {
 public:
   // Visual Studio 2012 still doesn't support template aliases
   // http://msdn.microsoft.com/en-us/library/vstudio/hh567368.aspx
-  // using ComponentsType = std::unordered_map<std::string, std::shared_ptr<ActorComponent>>;
-  typedef std::unordered_map<std::string, std::shared_ptr<ActorComponent>> ComponentsType;
+  // using ComponentsType = std::unordered_map<std::string, std::shared_ptr<EntityComponent>>;
+  typedef std::unordered_map<std::string, std::shared_ptr<EntityComponent>> ComponentsType;
 
-  Actor();
-  ~Actor();
+  Entity();
+  ~Entity();
 
-  void AddComponent(std::string name, ActorComponent *component);
+  void AddComponent(std::string name, EntityComponent *component);
   virtual std::string GetName() const = 0;
 
   void Update(int delta);
@@ -33,7 +33,7 @@ private:
 };
 
 template <class ComponentType>
-std::weak_ptr<ComponentType> Actor::GetComponent(std::string name) {
+std::weak_ptr<ComponentType> Entity::GetComponent(std::string name) {
   ComponentsType::iterator search = components_.find(name);
 
   if (search != components_.end()) {

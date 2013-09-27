@@ -1,14 +1,14 @@
-#include "Actor.h"
+#include "Entity.h"
 
 #include <memory>
 
 namespace Coasters {
 namespace Game {
 
-Actor::Actor() {}
-Actor::~Actor() {}
+Entity::Entity() {}
+Entity::~Entity() {}
 
-void AddComponent(std::string name, ActorComponent *component) {}
+void AddComponent(std::string name, EntityComponent *component) {}
 
 template <class ComponentType>
 std::weak_ptr<ComponentType> GetComponent(std::string name) {

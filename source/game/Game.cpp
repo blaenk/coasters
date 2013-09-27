@@ -8,10 +8,9 @@
 namespace Coasters {
 namespace Game {
 
-Game::Game(Engine::Engine *engine, double fps) :
-  engine_(engine),
-  updateInterval_(1 / fps) {
-}
+Game::Game(double fps) :
+  updateInterval_(1 / fps),
+  engine_(nullptr) {}
 
 void Game::Update(double lag) {
   while (lag >= this->updateInterval_) {
@@ -27,7 +26,8 @@ double Game::UpdateInterval() {
 }
 
 void Game::OnEvent(const Engine::Event& event) {
-  if (event.scope() != Engine::Event::Scope::Game) {
+  if (this->engine_ != nullptr &&
+      event.scope() != Engine::Event::Scope::Game) {
     this->engine_->OnEvent(event);
     return;
   }
@@ -36,7 +36,6 @@ void Game::OnEvent(const Engine::Event& event) {
 
   switch (gevent.subject()) {
     case Engine::GameEvent::Subject::ActorDestroyed:
-      // MeshEvent &mevent = static_cast<MeshEvent &>(event);
       break;
   }
 }

@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <tuple>
 
-#include "Actor.h"
+#include "Entity.h"
 #include "MeshComponent.h"
 
 namespace std {
@@ -25,7 +25,7 @@ namespace std {
 namespace Coasters {
 namespace Game {
 
-class Chunk : public Actor {
+class Chunk : public Entity {
 public:
   typedef std::tuple<int, int, int> BlockCoordinate;
   typedef std::tuple<int, int, int> ChunkDimensions;

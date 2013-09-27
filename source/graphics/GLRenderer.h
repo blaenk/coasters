@@ -18,7 +18,7 @@ namespace Graphics {
 
 class GLRenderer : public Renderer {
 public:
-  GLRenderer(Engine::Engine *engine);
+  GLRenderer();
   ~GLRenderer();
 
   bool Initialize();

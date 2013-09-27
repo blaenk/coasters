@@ -1,5 +1,5 @@
-#ifndef ACTOR_COMPONENT_H
-#define ACTOR_COMPONENT_H
+#ifndef ENTITY_COMPONENT_H
+#define ENTITY_COMPONENT_H
 
 #include <memory>
 #include <string>
@@ -7,12 +7,12 @@
 namespace Coasters {
 namespace Game {
 
-class Actor;
+class Entity;
 
-class ActorComponent {
+class EntityComponent {
 public:
-  ActorComponent();
-  virtual ~ActorComponent();
+  EntityComponent();
+  virtual ~EntityComponent();
 
   virtual bool Initialize() = 0;
   virtual void PostInitialize() = 0;
@@ -21,7 +21,7 @@ public:
   virtual std::string GetName() const = 0;
 
 private:
-  std::weak_ptr<Actor> actor_;
+  std::weak_ptr<Entity> entity_;
 };
 
 } // Game

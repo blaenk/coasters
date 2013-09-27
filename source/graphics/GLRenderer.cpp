@@ -11,10 +11,8 @@
 namespace Coasters {
 namespace Graphics {
 
-GLRenderer::GLRenderer(Engine::Engine *engine) :
-  chunk_(16, 16, 16) {
-  engine_ = engine;
-}
+GLRenderer::GLRenderer() :
+  chunk_(16, 16, 16) {}
 
 bool GLRenderer::Initialize() {
   glewExperimental = GL_TRUE;
@@ -36,11 +34,11 @@ bool GLRenderer::Initialize() {
     "}";
 
   // Create Vertex Array Object
-  glGenVertexArrays( 1, &vao );
-  glBindVertexArray( vao );
+  glGenVertexArrays(1, &vao);
+  glBindVertexArray(vao);
 
   // Create a Vertex Buffer Object and copy the vertex data to it
-  glGenBuffers( 1, &vbo );
+  glGenBuffers(1, &vbo);
 
   this->chunk_.Fill();
 
@@ -55,13 +53,13 @@ bool GLRenderer::Initialize() {
   printf("verts: %d\n", verts.size());
   printf("triangles: %d\n", this->chunk_.mesh_.GetTriangleCount());
 
-  glBindBuffer( GL_ARRAY_BUFFER, vbo );
-  glBufferData( GL_ARRAY_BUFFER, verts.size() * sizeof(glm::vec3), &verts[0], GL_STATIC_DRAW );
+  glBindBuffer(GL_ARRAY_BUFFER, vbo);
+  glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(glm::vec3), &verts[0], GL_STATIC_DRAW);
 
   // Create and compile the vertex shader
-  vertexShader = glCreateShader( GL_VERTEX_SHADER );
-  glShaderSource( vertexShader, 1, &vertexSource, NULL );
-  glCompileShader( vertexShader );
+  vertexShader = glCreateShader(GL_VERTEX_SHADER);
+  glShaderSource(vertexShader, 1, &vertexSource, NULL);
+  glCompileShader(vertexShader);
 
   GLint stat;
 
@@ -74,9 +72,9 @@ bool GLRenderer::Initialize() {
   }
 
   // Create and compile the fragment shader
-  fragmentShader = glCreateShader( GL_FRAGMENT_SHADER );
-  glShaderSource( fragmentShader, 1, &fragmentSource, NULL );
-  glCompileShader( fragmentShader );
+  fragmentShader = glCreateShader( GL_FRAGMENT_SHADER);
+  glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
+  glCompileShader(fragmentShader);
 
   glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &stat);
 
@@ -87,20 +85,20 @@ bool GLRenderer::Initialize() {
   }
   // Link the vertex and fragment shader into a shader program
   shaderProgram = glCreateProgram();
-  glAttachShader( shaderProgram, vertexShader );
-  glAttachShader( shaderProgram, fragmentShader );
-  glBindFragDataLocation( shaderProgram, 0, "outColor" );
-  glLinkProgram( shaderProgram );
-  glUseProgram( shaderProgram );
+  glAttachShader(shaderProgram, vertexShader);
+  glAttachShader(shaderProgram, fragmentShader);
+  glBindFragDataLocation(shaderProgram, 0, "outColor");
+  glLinkProgram(shaderProgram);
+  glUseProgram(shaderProgram);
 
   // Specify the layout of the vertex data
-  GLint posAttrib = glGetAttribLocation( shaderProgram, "position" );
-  glEnableVertexAttribArray( posAttrib );
-  glVertexAttribPointer( posAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0 );
+  GLint posAttrib = glGetAttribLocation(shaderProgram, "position");
+  glEnableVertexAttribArray(posAttrib);
+  glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
   // Get the location of the color uniform
-  uniColor = glGetUniformLocation( shaderProgram, "triangleColor" );
-  uniCamera = glGetUniformLocation( shaderProgram, "camera" );
+  uniColor = glGetUniformLocation(shaderProgram, "triangleColor");
+  uniCamera = glGetUniformLocation(shaderProgram, "camera");
   // this->camera_.setPosition(glm::vec3(0.0f, 2.0f, -15.0f));
   // this->camera_.setLens(0.25f*3.1415f, 800 / 600, 1.0f, 1000.0f);
   // this->camera_.lookAt(glm::vec3(0, 0, 1), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
@@ -110,13 +108,13 @@ bool GLRenderer::Initialize() {
 }
 
 GLRenderer::~GLRenderer() {
-  glDeleteProgram( shaderProgram );
-  glDeleteShader( fragmentShader );
-  glDeleteShader( vertexShader );
+  glDeleteProgram(shaderProgram);
+  glDeleteShader(fragmentShader);
+  glDeleteShader(vertexShader);
 
-  glDeleteBuffers( 1, &vbo );
+  glDeleteBuffers(1, &vbo);
 
-  glDeleteVertexArrays( 1, &vao );
+  glDeleteVertexArrays(1, &vao);
 }
 
 void GLRenderer::OnEvent(const Engine::Event& event) {
@@ -134,13 +132,13 @@ void GLRenderer::OnEvent(const Engine::Event& event) {
 void GLRenderer::Render() {
     // Set the color of the triangle
     float time = (float)clock() / (float)CLOCKS_PER_SEC;
-    glUniform3f( uniColor, ( sin( time * 4.0f ) + 1.0f ) / 2.0f, 0.0f, 0.0f );
+    glUniform3f(uniColor, (sin(time * 4.0f) + 1.0f) / 2.0f, 0.0f, 0.0f);
     glUniformMatrix4fv(uniCamera, 1, GL_FALSE, glm::value_ptr(this->camera_.viewProjection()));
 
-    glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    glDrawArrays( GL_TRIANGLES, 0, this->chunk_.mesh_.GetVertices().size());
+    glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(this->chunk_.mesh_.GetVertices().size()));
 }
 
 } // Graphics

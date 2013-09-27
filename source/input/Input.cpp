@@ -8,8 +8,8 @@
 namespace Coasters {
 namespace Input {
 
-Input::Input(Engine::Engine *engine) :
-  engine_(engine) {}
+Input::Input() :
+  engine_(nullptr) {}
 
 void Input::OnEvent(const Engine::Event &event) {
 }
@@ -20,7 +20,7 @@ void Input::Poll() {
 
   while (SDL_PollEvent(&event)) {
     if (event.type == SDL_QUIT) {
-      this->OnEvent(ApplicationEvent(ApplicationEvent::Subject::Quit));
+      this->engine_->OnEvent(ApplicationEvent(ApplicationEvent::Subject::Quit));
       return;
     }
 

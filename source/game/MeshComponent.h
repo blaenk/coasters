@@ -6,12 +6,12 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-#include "ActorComponent.h"
+#include "EntityComponent.h"
 
 namespace Coasters {
 namespace Game {
 
-class MeshComponent : public ActorComponent {
+class MeshComponent : public EntityComponent {
 public:
   MeshComponent();
 

@@ -17,7 +17,6 @@ void TieToCore() {
                               &process_affinity_mask,
                               &system_affinity_mask)) return;
 
-  // run on the first core
   affinity_mask = (ULONG_PTR)1 << 0;
   if (affinity_mask & process_affinity_mask)
     SetThreadAffinityMask(GetCurrentThread(), affinity_mask);
@@ -26,9 +25,9 @@ void TieToCore() {
 
 SDLApplication::SDLApplication() :
   window_(nullptr, SDL_DestroyWindow), glCtx_(0),
-  isFullscreen_(false), isBorderless_(false),
-  engine_(this) {
+  isFullscreen_(false), isBorderless_(false) {
   TieToCore();
+  this->engine_.SetApplication(this);
 
   SDL_Init(SDL_INIT_VIDEO);
 
@@ -97,7 +96,6 @@ void SDLApplication::OnEvent(const Engine::Event &event) {
   using Engine::ApplicationEvent;
   typedef ApplicationEvent::Subject Subject;
 
-  printf("application event\n");
   const auto appevent = static_cast<const ApplicationEvent &>(event);
   switch (appevent.subject()) {
     case Subject::Quit:

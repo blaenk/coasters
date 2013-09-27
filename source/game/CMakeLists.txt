@@ -2,8 +2,8 @@
 set (GAME_SRC
      Game.cpp
      Camera.cpp
-     Actor.cpp
-     ActorComponent.cpp
+     Entity.cpp
+     EntityComponent.cpp
      MeshComponent.cpp
      Chunk.cpp
      World.cpp)
@@ -13,8 +13,8 @@ if (WIN32)
   set (GAME_SRC ${GAME_SRC}
        Game.h
        Camera.h
-       Actor.h
-       ActorComponent.h
+       Entity.h
+       EntityComponent.h
        MeshComponent.h
        Chunk.h
        World.h)
