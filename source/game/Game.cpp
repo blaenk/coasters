@@ -9,35 +9,28 @@ namespace Coasters {
 namespace Game {
 
 Game::Game(double fps) :
-  updateInterval_(1 / fps),
-  engine_(nullptr) {}
+  updateInterval_(1 / fps) {
+}
 
-void Game::Update(double lag) {
+void Game::Initialize() {
+  auto chunk = std::make_shared<Chunk>(16, 16, 16);
+  chunk->Fill();
+  entities_.push_back(chunk);
+}
+
+double Game::Update(double lag) {
   while (lag >= this->updateInterval_) {
     this->Update();
     lag -= this->updateInterval_;
   }
+
+  return lag;
 }
 
 void Game::Update() {}
 
 double Game::UpdateInterval() {
   return this->updateInterval_;
-}
-
-void Game::OnEvent(const Engine::Event& event) {
-  if (this->engine_ != nullptr &&
-      event.scope() != Engine::Event::Scope::Game) {
-    this->engine_->OnEvent(event);
-    return;
-  }
-
-  auto gevent = static_cast<const Engine::GameEvent &>(event);
-
-  switch (gevent.subject()) {
-    case Engine::GameEvent::Subject::ActorDestroyed:
-      break;
-  }
 }
 
 } // Game

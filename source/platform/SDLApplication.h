@@ -18,11 +18,10 @@ public:
 
   int Run() override;
   void UpdateClock();
+  void ProcessEvents();
 
   void FSToggle();
   void BorderToggle();
-
-  void OnEvent(const Engine::Event &event) override;
 
 private:
   std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> window_;

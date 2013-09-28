@@ -17,49 +17,36 @@
 #include "game/Game.h"
 
 namespace Coasters {
+namespace Graphics { class Mesh; }
 namespace Engine {
 
-/*
-class RenderService {
+class RendererService {
 public:
-  RenderService(Graphics::Renderer *renderer) :
+  RendererService(Graphics::Renderer *renderer) :
     renderer_(renderer) {}
 
-  void registerMesh(Graphics::Mesh *mesh) {
-    renderer->registerMesh(mesh);
+  void registerMesh(std::shared_ptr<Graphics::Mesh> mesh) {
+    renderer_->registerMesh(mesh);
   }
 private:
   Graphics::Renderer *renderer_;
 };
-*/
+
+namespace Services {
+  extern RendererService *rendererService;
+} // services
 
 class Engine {
 public:
   Engine();
 
-  void SetApplication(Platform::Application *application) {
-    application_ = application;
-  }
-
   void Initialize();
-  void RunFrame(double lag);
-  void OnEvent(const Event &event);
-
-  // RenderService renderService() { return renderService_; }
-  // GameService gameService() { return gameService_; }
-  // InputService inputService() { return inputService_; }
+  double RunFrame(double lag);
 
 private:
   Graphics::GLRenderer renderer_;
-  // RenderService renderService_;
-
   Game::Game game_;
-  // GameService gameService_;
-
   Input::Input input_;
-  // InputService inputService_;
-
-  Platform::Application *application_;
 };
 
 } // Engine

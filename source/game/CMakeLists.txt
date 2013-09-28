@@ -21,3 +21,4 @@ if (WIN32)
 endif (WIN32)
 
 add_library (game STATIC ${GAME_SRC})
+target_link_libraries (game graphics)

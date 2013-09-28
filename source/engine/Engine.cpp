@@ -10,21 +10,25 @@
 namespace Coasters {
 namespace Engine {
 
-Engine::Engine() :
-  game_(120),
-  application_(nullptr) {
-  renderer_.SetEngine(this);
-  input_.SetEngine(this);
-  game_.SetEngine(this);
+namespace Services {
+  RendererService *rendererService = nullptr;
 }
+
+Engine::Engine() :
+  renderer_(),
+  game_(120) {}
 
 void Engine::Initialize() {
   bool res = this->renderer_.Initialize();
+  Services::rendererService = new RendererService(&renderer_);
+  this->game_.Initialize();
 }
 
-void ProcessEvents() {}
+// void Engine::FeedInput(SDL_Event event) {
+//   this->input_.Feed();
+// }
 
-void Engine::RunFrame(double lag) {
+double Engine::RunFrame(double lag) {
   //this->input_.Poll();
     // input_.events is queue of key events
   //this->game_.Update(lag, this->input_.events());
@@ -33,27 +37,9 @@ void Engine::RunFrame(double lag) {
     // renderer_.meshes are rendered
 
   this->input_.Poll();
-  this->game_.Update(lag);
+  double unconsumed = this->game_.Update(lag);
   this->renderer_.Render();
-}
-
-// add Event::Scope::Application and forward to parent?
-void Engine::OnEvent(const Event &event) {
-  switch (event.scope()) {
-    case Event::Scope::Application:
-      if (application_ != nullptr)
-        this->application_->OnEvent(event);
-      break;
-    case Event::Scope::Input:
-      this->input_.OnEvent(event);
-      break;
-    case Event::Scope::Game:
-      this->game_.OnEvent(event);
-      break;
-    case Event::Scope::Renderer:
-      this->renderer_.OnEvent(event);
-      break;
-  }
+  return unconsumed;
 }
 
 } // Engine

@@ -11,7 +11,6 @@ public:
   virtual ~Application();
 
   virtual int Run() = 0;
-  virtual void OnEvent(const Engine::Event &event) = 0;
 private:
 };
 

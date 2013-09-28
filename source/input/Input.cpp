@@ -8,36 +8,9 @@
 namespace Coasters {
 namespace Input {
 
-Input::Input() :
-  engine_(nullptr) {}
-
-void Input::OnEvent(const Engine::Event &event) {
-}
+Input::Input() {}
 
 void Input::Poll() {
-  using namespace Engine;
-  SDL_Event event;
-
-  while (SDL_PollEvent(&event)) {
-    if (event.type == SDL_QUIT) {
-      this->engine_->OnEvent(ApplicationEvent(ApplicationEvent::Subject::Quit));
-      return;
-    }
-
-    if (event.type == SDL_KEYUP) {
-      switch (event.key.keysym.sym) {
-        case SDLK_ESCAPE:
-          this->engine_->OnEvent(ApplicationEvent(ApplicationEvent::Subject::Quit));
-          break;
-        case SDLK_f:
-          this->engine_->OnEvent(ApplicationEvent(ApplicationEvent::Subject::FullscreenToggle));
-          break;
-        case SDLK_b:
-          this->engine_->OnEvent(ApplicationEvent(ApplicationEvent::Subject::BorderToggle));
-          break;
-      }
-    }
-  }
 }
 
 } // Input

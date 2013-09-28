@@ -6,7 +6,6 @@
 #include <tuple>
 
 #include "Entity.h"
-#include "MeshComponent.h"
 
 namespace std {
   template<>
@@ -51,7 +50,6 @@ public:
 
   void Fill();
   void BuildMesh();
-  MeshComponent mesh_;
 
 private:
   inline bool isValidCoordinate(BlockCoordinate &coordinate);

@@ -1,17 +1,15 @@
 #ifndef GL_RENDERER_H
 #define GL_RENDERER_H
 
-// #includes
-#include <GL/glew.h>
-#include <SDL_opengl.h>
+#include <vector>
+#include <memory>
 
 // renderer
 #include "Renderer.h"
-
-#include "engine/Event.h"
+#include "GLProgram.h"
+#include "GLMesh.h"
 
 #include "game/Camera.h"
-#include "game/Chunk.h"
 
 namespace Coasters {
 namespace Graphics {
@@ -23,19 +21,14 @@ public:
 
   bool Initialize();
   void Render() override;
-  void OnEvent(const Engine::Event& event) override;
+
+  void registerMesh(std::shared_ptr<Graphics::Mesh> mesh);
 
 private:
-  Game::Chunk chunk_;
   Game::Camera camera_;
 
-  GLuint vao;
-  GLuint vbo;
-  GLint uniColor;
-  GLint uniCamera;
-  GLuint shaderProgram;
-  GLuint fragmentShader;
-  GLuint vertexShader;
+  std::shared_ptr<GLProgram> program_;
+  std::vector<std::shared_ptr<GLMesh>> meshes_;
 };
 
 } // Graphics

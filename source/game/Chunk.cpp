@@ -1,9 +1,16 @@
 #include "Chunk.h"
 
+#include "MeshComponent.h"
+#include "graphics/Mesh.h"
+
 namespace Coasters {
 namespace Game {
 
-Chunk::Chunk(int x, int y, int z) : chunkDimensions_(std::make_tuple(x, y, z)) {
+Chunk::Chunk(int x, int y, int z) :
+  chunkDimensions_(std::make_tuple(x, y, z)) {
+  auto mesh = std::make_shared<MeshComponent>();
+  mesh->Initialize();
+  this->AddComponent("mesh", mesh);
 }
 
 std::string Chunk::GetName() const { return "Chunk"; }
@@ -27,6 +34,10 @@ void Chunk::Fill() {
   this->AddFace(std::make_tuple(0, 0, 0), Facing::Down, dim);
   this->AddFace(std::make_tuple(0, 0, 0), Facing::Back, dim);
   this->AddFace(std::make_tuple(0, 0, 0), Facing::Front, dim);
+
+  auto mesh_component = this->GetComponent<MeshComponent>("mesh").lock();
+
+  if (mesh_component) mesh_component->Submit();
 }
 
 bool Chunk::SetBlock(BlockCoordinate &coord, BlockType type) {
@@ -46,6 +57,11 @@ void Chunk::RemoveBlock(BlockCoordinate &coord) {
 void Chunk::AddFace(BlockCoordinate &coord, Facing facing, float size) {
   int x, y, z;
   std::tie(x, y, z) = coord;
+  auto mesh_component = this->GetComponent<MeshComponent>("mesh").lock();
+
+  if (!mesh_component) return;
+
+  auto mesh = mesh_component->GetMesh();
 
   float xend = x + size, yend = y + size, zend = z + size;
 
@@ -63,28 +79,28 @@ void Chunk::AddFace(BlockCoordinate &coord, Facing facing, float size) {
 
   switch (facing) {
     case Facing::Front:
-      this->mesh_.AddTriangle(A, B, C);
-      this->mesh_.AddTriangle(C, D, A);
+      mesh->AddTriangle(A, B, C);
+      mesh->AddTriangle(C, D, A);
       break;
     case Facing::Back:
-      this->mesh_.AddTriangle(G, F, E);
-      this->mesh_.AddTriangle(E, H, G);
+      mesh->AddTriangle(G, F, E);
+      mesh->AddTriangle(E, H, G);
       break;
     case Facing::Up:
-      this->mesh_.AddTriangle(G, H, C);
-      this->mesh_.AddTriangle(C, H, D);
+      mesh->AddTriangle(G, H, C);
+      mesh->AddTriangle(C, H, D);
       break;
     case Facing::Down:
-      this->mesh_.AddTriangle(B, F, A);
-      this->mesh_.AddTriangle(A, F, E);
+      mesh->AddTriangle(B, F, A);
+      mesh->AddTriangle(A, F, E);
       break;
     case Facing::Left:
-      this->mesh_.AddTriangle(E, A, H);
-      this->mesh_.AddTriangle(H, A, D);
+      mesh->AddTriangle(E, A, H);
+      mesh->AddTriangle(H, A, D);
       break;
     case Facing::Right:
-      this->mesh_.AddTriangle(F, G, B);
-      this->mesh_.AddTriangle(B, G, C);
+      mesh->AddTriangle(F, G, B);
+      mesh->AddTriangle(B, G, C);
       break;
   }
 }

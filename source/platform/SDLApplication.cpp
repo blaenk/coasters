@@ -25,9 +25,8 @@ void TieToCore() {
 
 SDLApplication::SDLApplication() :
   window_(nullptr, SDL_DestroyWindow), glCtx_(0),
-  isFullscreen_(false), isBorderless_(false) {
+  isFullscreen_(false), isBorderless_(false), engine_() {
   TieToCore();
-  this->engine_.SetApplication(this);
 
   SDL_Init(SDL_INIT_VIDEO);
 
@@ -92,6 +91,7 @@ void SDLApplication::FSToggle() {
   }
 }
 
+/*
 void SDLApplication::OnEvent(const Engine::Event &event) {
   using Engine::ApplicationEvent;
   typedef ApplicationEvent::Subject Subject;
@@ -99,16 +99,10 @@ void SDLApplication::OnEvent(const Engine::Event &event) {
   const auto appevent = static_cast<const ApplicationEvent &>(event);
   switch (appevent.subject()) {
     case Subject::Quit:
-      this->isRunning_ = false;
-      break;
-    case Subject::FullscreenToggle:
-      this->FSToggle();
-      break;
-    case Subject::BorderToggle:
-      this->BorderToggle();
       break;
   }
 }
+*/
 
 void SDLApplication::UpdateClock() {
   double current = static_cast<double>(SDL_GetPerformanceCounter()) / SDL_GetPerformanceFrequency();
@@ -121,11 +115,39 @@ void SDLApplication::UpdateClock() {
   this->lag_ += delta;
 }
 
+void SDLApplication::ProcessEvents() {
+  SDL_Event event;
+
+  while (SDL_PollEvent(&event)) {
+    if (event.type == SDL_QUIT) {
+      this->isRunning_ = false;
+      return;
+    }
+
+    if (event.type == SDL_KEYUP) {
+      switch (event.key.keysym.sym) {
+        case SDLK_ESCAPE:
+          this->isRunning_ = false;
+          return;
+        case SDLK_f:
+          this->FSToggle();
+          return;
+        case SDLK_b:
+          this->BorderToggle();
+          return;
+      }
+    }
+
+    // this->engine_.FeedInput(event);
+  }
+}
+
 int SDLApplication::Run() {
   while (this->isRunning_) {
+    this->ProcessEvents();
     this->UpdateClock();
 
-    this->engine_.RunFrame(this->lag_);
+    this->lag_ = this->engine_.RunFrame(this->lag_);
 
     SDL_GL_SwapWindow(this->window_.get());
   }

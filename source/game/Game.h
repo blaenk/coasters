@@ -15,19 +15,15 @@ class Game {
 public:
   Game(double interval);
 
-  void SetEngine(Engine::Engine *engine) {
-    engine_ = engine;
-  }
+  void Initialize();
 
-  void Update(double lag);
+  double Update(double lag);
   double UpdateInterval();
-
-  void OnEvent(const Engine::Event& event);
 private:
   void Update();
 
 private:
-  Engine::Engine *engine_;
+  std::vector<std::shared_ptr<Entity>> entities_;
   enum class Action : uint8_t {
     Forward,
     Backward,

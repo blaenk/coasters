@@ -3,9 +3,8 @@
 
 #include <memory>
 #include <string>
-#include <vector>
-#include <glm/glm.hpp>
 
+#include "graphics/Mesh.h"
 #include "EntityComponent.h"
 
 namespace Coasters {
@@ -13,23 +12,25 @@ namespace Game {
 
 class MeshComponent : public EntityComponent {
 public:
-  MeshComponent();
+  MeshComponent() : mesh_(std::make_shared<Graphics::Mesh>()) {}
 
   // INTERFACE
   bool Initialize() override;
+  void Submit();
   void PostInitialize() override;
   void Update(int delta) override;
 
+  std::shared_ptr<Graphics::Mesh> GetMesh() {
+    return mesh_;
+  }
+
+  void SetMesh(std::shared_ptr<Graphics::Mesh> mesh) {
+    mesh_ = mesh;
+  }
+
   std::string GetName() const override;
-
-  // CHILD
-  void AddTriangle(const glm::vec3 v1, const glm::vec3 v2, const glm::vec3 v3);
-
-  int GetTriangleCount() const;
-  const std::vector<glm::vec3>& GetVertices() const;
 private:
-  int triangleCount_;
-  std::vector<glm::vec3> vertices_;
+  std::shared_ptr<Graphics::Mesh> mesh_;
 };
 
 } // Game

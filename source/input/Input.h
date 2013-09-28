@@ -18,15 +18,7 @@ class Input {
 public:
   Input();
 
-  void SetEngine(Engine::Engine *engine) {
-    engine_ = engine;
-  }
-
-  void OnEvent(const Engine::Event &event);
   void Poll();
-
-private:
-  Engine::Engine *engine_;
 };
 
 } // Input

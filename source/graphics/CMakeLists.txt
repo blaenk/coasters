@@ -1,10 +1,18 @@
 # add source files
 set (GRAPHICS_SRC
+     Mesh.cpp
      GLRenderer.cpp
-     GLRenderer.h)
+     GLProgram.cpp
+     GLShader.cpp
+     GLMesh.cpp)
 
 if (WIN32)
-  # set (GRAPHICS_SRC ${GRAPHICS_SRC} Renderer.h)
+  set (GRAPHICS_SRC ${GRAPHICS_SRC} Renderer.h
+                                    Mesh.h
+                                    GLRenderer.h
+                                    GLProgram.h
+                                    GLShader.h
+                                    GLMesh.h)
 endif ()
 
 add_library (graphics STATIC ${GRAPHICS_SRC})
