@@ -31,9 +31,10 @@ bool GLRenderer::Initialize() {
     "}";
   const char* fragmentSource =
     "#version 150\n"
+    "out vec4 outColor;"
     "uniform vec3 triangleColor;"
     "void main() {"
-    "  gl_FragColor = vec4( triangleColor, 1.0 );"
+    "  outColor = vec4( 0.0, 1.0, 0.0, 1.0 );"
     "}";
 
   GLShader vertexShader(GL_VERTEX_SHADER, vertexSource);

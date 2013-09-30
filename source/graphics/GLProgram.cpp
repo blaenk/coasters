@@ -15,6 +15,7 @@ GLProgram::GLProgram(const std::vector<GLShader> &shaders) {
   for (auto &shader : shaders)
     glAttachShader(program_, shader.resource());
 
+  glBindFragDataLocation(program_, 0, "outColor");
   glLinkProgram(program_);
 
   GLint status;
