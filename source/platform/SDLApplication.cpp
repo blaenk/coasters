@@ -2,8 +2,6 @@
 
 #include <SDL_syswm.h>
 
-#include "engine/ApplicationEvent.h"
-
 namespace Coasters {
 namespace Platform {
 
@@ -90,19 +88,6 @@ void SDLApplication::FSToggle() {
     this->isFullscreen_ = !this->isFullscreen_;
   }
 }
-
-/*
-void SDLApplication::OnEvent(const Engine::Event &event) {
-  using Engine::ApplicationEvent;
-  typedef ApplicationEvent::Subject Subject;
-
-  const auto appevent = static_cast<const ApplicationEvent &>(event);
-  switch (appevent.subject()) {
-    case Subject::Quit:
-      break;
-  }
-}
-*/
 
 void SDLApplication::UpdateClock() {
   double current = static_cast<double>(SDL_GetPerformanceCounter()) / SDL_GetPerformanceFrequency();

@@ -8,9 +8,6 @@
 
 #include "platform/Application.h"
 
-// events
-#include "Event.h"
-
 // components
 #include "input/Input.h"
 #include "graphics/GLRenderer.h"

@@ -2,11 +2,6 @@
 
 #include <assert.h>
 
-#include "RendererEvent.h"
-#include "InputEvent.h"
-#include "GameEvent.h"
-#include "ApplicationEvent.h"
-
 namespace Coasters {
 namespace Engine {
 

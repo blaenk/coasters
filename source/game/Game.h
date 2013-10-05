@@ -4,7 +4,6 @@
 #include <unordered_map>
 #include <SDL.h>
 
-#include "engine/GameEvent.h"
 #include "Chunk.h"
 
 namespace Coasters {
@@ -32,8 +31,8 @@ private:
   };
 
   double updateInterval_;
-  std::unordered_map<Engine::GameEvent::Subject,
-                     std::vector<std::shared_ptr<Entity>>> handlers_;
+  // std::unordered_map<Engine::GameEvent::Subject,
+  //                    std::vector<std::shared_ptr<Entity>>> handlers_;
   std::unordered_map<Action, SDL_Keysym> keyBinds_;
   std::unordered_map<Action,
                      std::vector<std::shared_ptr<EntityComponent>>> inputHandlers_;

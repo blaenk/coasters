@@ -3,8 +3,6 @@
 #include "engine/Engine.h"
 #include <SDL.h>
 
-#include "engine/ApplicationEvent.h"
-
 namespace Coasters {
 namespace Input {
 

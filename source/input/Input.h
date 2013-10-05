@@ -2,13 +2,10 @@
 #define INPUT_H
 
 // includes
-#include <string>
 #include <memory>
 #include <unordered_map>
-
-// events
-#include "engine/Event.h"
-#include "engine/InputEvent.h"
+#include <vector>
+#include <functional>
 
 namespace Coasters {
 namespace Engine { class Engine; }
@@ -19,6 +16,9 @@ public:
   Input();
 
   void Poll();
+private:
+  // std::unordered_map<SDL_key,
+  //                    std::vector<std::function<void >>>;
 };
 
 } // Input

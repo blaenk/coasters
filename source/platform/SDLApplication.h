@@ -5,7 +5,6 @@
 #include <SDL.h>
 
 #include "Application.h"
-#include "engine/Event.h"
 #include "engine/Engine.h"
 
 namespace Coasters {
