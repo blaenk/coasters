@@ -29,6 +29,14 @@ private:
 
   std::shared_ptr<GLProgram> program_;
   std::vector<std::shared_ptr<GLMesh>> meshes_;
+
+  GLint fragmentShader;
+  GLint vertexShader;
+  GLint shaderProgram;
+  GLint uniColor;
+  GLint uniCamera;
+  GLuint vao;
+  GLuint vbo;
 };
 
 } // Graphics

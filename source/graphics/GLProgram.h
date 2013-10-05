@@ -6,6 +6,10 @@
 
 #include <unordered_map>
 #include <string>
+#include <memory>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "GLShader.h"
 
@@ -14,7 +18,7 @@ namespace Graphics {
 
 class GLProgram {
 public:
-  GLProgram(const std::vector<GLShader> &shaders);
+  GLProgram(const std::vector<std::shared_ptr<GLShader>> &shaders);
   ~GLProgram();
   GLuint resource() const { return program_; }
 
@@ -23,15 +27,17 @@ public:
   }
 
   void uniform(const std::string &unif) {
-    uniforms_[unif] = glGetUniformLocation(program_, unif.c_str());
+    GLint val = glGetUniformLocation(program_, unif.c_str());
+    printf("val for %s is %d\n", unif.c_str(), val);
+    uniforms_[unif] = val;
   }
 
   void setUniform(const std::string &unif, float x, float y, float z) {
     glUniform3f(uniforms_[unif], x, y, z);
   }
 
-  void setUniform(const std::string &unif, const GLfloat *value) {
-    glUniformMatrix4fv(uniforms_[unif], 1, GL_FALSE, value);
+  void setUniform(const std::string &unif, const glm::mat4 &value) {
+    glUniformMatrix4fv(uniforms_[unif], 1, GL_FALSE, glm::value_ptr(value));
   }
 
   void Use();

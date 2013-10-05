@@ -6,6 +6,8 @@
 
 #include <memory>
 
+#include "GLProgram.h"
+
 #include "Mesh.h"
 
 namespace Coasters {
@@ -13,7 +15,9 @@ namespace Graphics {
 
 class GLMesh {
 public:
-  GLMesh(std::shared_ptr<Mesh> mesh);
+  GLMesh(std::shared_ptr<Mesh> mesh, std::shared_ptr<GLProgram> program);
+  void Bind();
+  void Unbind();
   ~GLMesh();
   GLsizei vertCount() const {
     return static_cast<GLsizei>(mesh_->GetVertices().size());

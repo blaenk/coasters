@@ -9,21 +9,39 @@
 namespace Coasters {
 namespace Graphics {
 
-GLMesh::GLMesh(std::shared_ptr<Mesh> mesh) :
+GLMesh::GLMesh(std::shared_ptr<Mesh> mesh, std::shared_ptr<GLProgram> program) :
   vao_(0), vbo_(0), mesh_(mesh) {
   glGenVertexArrays(1, &vao_);
   glBindVertexArray(vao_);
 
-  auto verts = this->mesh_->GetVertices();
-
   glGenBuffers(1, &vbo_);
   glBindBuffer(GL_ARRAY_BUFFER, vbo_);
-  glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(glm::vec3), &verts[0], GL_STATIC_DRAW);
+
+  auto &verts = this->mesh_->GetVertices();
+
+  printf("mesh has %d verts\n", verts.size());
+
+  glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(glm::vec3), &this->mesh_->GetVertices()[0], GL_STATIC_DRAW);
+  printf("made mesh\n");
+
+  GLuint pos = program->attribute("position");
+  glEnableVertexAttribArray(pos);
+  glVertexAttribPointer(pos, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+}
+
+void GLMesh::Bind() {
+  glBindVertexArray(vao_);
+}
+
+void GLMesh::Unbind() {
+  glBindVertexArray(0);
 }
 
 GLMesh::~GLMesh() {
-  glDeleteBuffers(1, &vbo_);
-  glDeleteVertexArrays(1, &vao_);
+  printf("destroyed mesh!?\n");
+  // glDeleteBuffers(1, &vbo_);
+  // glDeleteVertexArrays(1, &vao_);
 }
 
 } // Graphics
