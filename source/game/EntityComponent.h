@@ -11,8 +11,14 @@ class Entity;
 
 class EntityComponent {
 public:
-  EntityComponent();
+  EntityComponent() : parent_(nullptr) {}
   virtual ~EntityComponent();
+
+  void setParent(Entity *parent) {
+    parent_ = parent;
+  }
+
+  Entity *parent() const { return parent_; }
 
   virtual bool Initialize() = 0;
   virtual void PostInitialize() = 0;
@@ -21,7 +27,7 @@ public:
   virtual std::string GetName() const = 0;
 
 private:
-  std::weak_ptr<Entity> entity_;
+  Entity *parent_;
 };
 
 } // Game

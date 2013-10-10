@@ -12,6 +12,18 @@ Camera::Camera() :
   up_(0.0f, 0.0f, 1.0f), look_(0.0f, 0.0f, 0.0f) {
     this->view_ = glm::lookAt(position_, look_, up_);
     this->projection_ = glm::perspective(45.0f, 800.0f / 600.0f, 1.0f, 10.0f);
+
+    auto input = std::make_shared<InputComponent>();
+    input->Initialize();
+    input->Bind('W', &Camera::moveForward);
+    // input->Bind('A', &Camera::strafeLeft);
+    // input->Bind('S', &Camera::moveBackward);
+    // input->Bind('D', &Camera::strafeRight);
+    this->AddComponent("input", input);
+}
+
+void Camera::moveForward() {
+  position_ += glm::vec3(1.0f, 0.0f, 0.0f);
 }
 
 void Camera::setPosition(const glm::vec3& position) { this->position_ = position; }
@@ -23,8 +35,6 @@ void Camera::setLens(float fovY, float aspect, float znear, float zfar) {
 
   this->projection_ = glm::perspective(this->fovY_, this->aspect_, this->nearZ_, this->farZ_);
 }
-
-void Camera::lookAt(glm::vec3 position, glm::vec3 target, glm::vec3 up) {}
 
 void Camera::strafe(float distance) {
   glm::vec3 s = glm::vec3(distance);

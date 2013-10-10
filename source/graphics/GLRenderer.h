@@ -9,8 +9,6 @@
 #include "GLProgram.h"
 #include "GLMesh.h"
 
-#include "game/Camera.h"
-
 namespace Coasters {
 namespace Graphics {
 
@@ -23,12 +21,15 @@ public:
   void Render() override;
 
   void registerMesh(std::shared_ptr<Graphics::Mesh> mesh);
+  void registerView(std::shared_ptr<glm::mat4> view);
+  void registerProjection(std::shared_ptr<glm::mat4> projection);
 
 private:
-  Game::Camera camera_;
-
   std::shared_ptr<GLProgram> program_;
   std::vector<std::shared_ptr<GLMesh>> meshes_;
+
+  std::shared_ptr<glm::mat4> view_;
+  std::shared_ptr<glm::mat4> projection_;
 
   GLint fragmentShader;
   GLint vertexShader;

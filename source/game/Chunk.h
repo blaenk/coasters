@@ -43,7 +43,7 @@ public:
 
   Chunk(int x, int y, int z);
 
-  virtual std::string GetName() const override;
+  virtual std::string GetName() const;
 
   bool SetBlock(BlockCoordinate &coord, BlockType type);
   void RemoveBlock(BlockCoordinate &coord);

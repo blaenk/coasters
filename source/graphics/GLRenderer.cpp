@@ -25,10 +25,11 @@ bool GLRenderer::Initialize() {
 
   const char* vertexSource =
     "#version 150\n"
-    "uniform mat4 camera;"
+    "uniform mat4 view;"
+    "uniform mat4 projection;"
     "in vec3 position;"
     "void main() {"
-    "  gl_Position = camera * vec4( position, 1.0 );"
+    "  gl_Position = projection * view * vec4( position, 1.0 );"
     "}";
   const char* fragmentSource =
     "#version 150\n"
@@ -106,7 +107,8 @@ bool GLRenderer::Initialize() {
 
   // Get the location of the color uniform
   program_->uniform("triangleColor");
-  program_->uniform("camera");
+  program_->uniform("view");
+  program_->uniform("projection");
   // uniColor = glGetUniformLocation(shaderProgram, "triangleColor");
   // uniCamera = glGetUniformLocation(shaderProgram, "camera");
 
@@ -137,6 +139,16 @@ void GLRenderer::registerMesh(std::shared_ptr<Mesh> mesh) {
   this->meshes_.push_back(std::make_shared<GLMesh>(mesh, program_));
 }
 
+void GLRenderer::registerView(std::shared_ptr<glm::mat4> view) {
+  printf("new view\n");
+  this->view_ = view;
+}
+
+void GLRenderer::registerProjection(std::shared_ptr<glm::mat4> projection) {
+  printf("new proj\n");
+  this->projection_ = projection;
+}
+
 GLRenderer::~GLRenderer() {
 }
 
@@ -148,7 +160,8 @@ void GLRenderer::Render() {
   program_->setUniform("triangleColor", (sin(time * 4.0f) + 1.0f) / 2.0f, 0.0f, 0.0f);
 
   // glUniformMatrix4fv(uniCamera, 1, GL_FALSE, glm::value_ptr(this->camera_.viewProjection()));
-  program_->setUniform("camera", camera_.viewProjection());
+  program_->setUniform("view", *view_);
+  program_->setUniform("projection", *projection_);
 
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

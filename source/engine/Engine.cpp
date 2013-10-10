@@ -7,6 +7,7 @@ namespace Engine {
 
 namespace Services {
   RendererService *rendererService = nullptr;
+  InputService *inputService = nullptr;
 }
 
 Engine::Engine() :
@@ -16,6 +17,7 @@ Engine::Engine() :
 void Engine::Initialize() {
   bool res = this->renderer_.Initialize();
   Services::rendererService = new RendererService(&renderer_);
+  Services::inputService = new InputService(&input_);
   this->game_.Initialize();
 }
 
@@ -31,7 +33,7 @@ double Engine::RunFrame(double lag) {
   //this->renderer_.Render(this->game_.actors());
     // renderer_.meshes are rendered
 
-  this->input_.Poll();
+  // this->input_.Poll();
   double unconsumed = this->game_.Update(lag);
   this->renderer_.Render();
   return unconsumed;

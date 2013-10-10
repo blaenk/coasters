@@ -14,11 +14,10 @@ class Entity {
 public:
   typedef std::unordered_map<std::string, std::shared_ptr<EntityComponent>> ComponentsType;
 
-  Entity();
+  Entity() {}
   ~Entity();
 
   void AddComponent(const std::string &name, std::shared_ptr<EntityComponent> component);
-  virtual std::string GetName() const = 0;
 
   void Update(int delta);
 

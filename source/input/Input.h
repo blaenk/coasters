@@ -1,6 +1,8 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#include <SDL.h>
+
 // includes
 #include <memory>
 #include <unordered_map>
@@ -15,10 +17,12 @@ class Input {
 public:
   Input();
 
-  void Poll();
+  void feedEvent(SDL_Event event);
+  void Bind(SDL_Keycode key, std::function<void ()> func);
 private:
-  // std::unordered_map<SDL_key,
-  //                    std::vector<std::function<void >>>;
+  // vector of inputContexts?
+  std::unordered_map<SDL_Keycode,
+                     std::vector<std::function<void ()>>> keyHandlers_;
 };
 
 } // Input

@@ -123,7 +123,7 @@ void SDLApplication::ProcessEvents() {
       }
     }
 
-    // this->engine_.FeedInput(event);
+    Engine::Services::inputService->feedEvent(event);
   }
 }
 

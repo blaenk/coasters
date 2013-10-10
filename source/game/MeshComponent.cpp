@@ -8,11 +8,11 @@ namespace Game {
 bool MeshComponent::Initialize() {
   return true;
 }
+
 void MeshComponent::Submit() {
-  printf("registering mesh\n");
   Engine::Services::rendererService->registerMesh(mesh_);
-  printf("registered mesh\n");
 }
+
 void MeshComponent::PostInitialize() {}
 void MeshComponent::Update(int delta) {}
 

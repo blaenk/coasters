@@ -1,10 +1,12 @@
 # add source files
 set (GAME_SRC
      Game.cpp
-     Camera.cpp
      Entity.cpp
      EntityComponent.cpp
+     PositionComponent.cpp
      MeshComponent.cpp
+     InputComponent.cpp
+     CameraComponent.cpp
      Chunk.cpp
      World.cpp)
 
@@ -12,10 +14,12 @@ set (GAME_SRC
 if (WIN32)
   set (GAME_SRC ${GAME_SRC}
        Game.h
-       Camera.h
        Entity.h
        EntityComponent.h
+       PositionComponent.h
        MeshComponent.h
+       InputComponent.h
+       CameraComponent.h
        Chunk.h
        World.h)
 endif (WIN32)
