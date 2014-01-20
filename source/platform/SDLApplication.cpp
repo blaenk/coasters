@@ -1,5 +1,7 @@
 #include "SDLApplication.h"
 
+#include "script/Lua.h"
+
 #include <SDL_syswm.h>
 
 namespace Coasters {
@@ -23,7 +25,8 @@ void TieToCore() {
 
 SDLApplication::SDLApplication() :
   window_(nullptr, SDL_DestroyWindow), glCtx_(0),
-  isFullscreen_(false), isBorderless_(false), engine_() {
+  isFullscreen_(false), isBorderless_(false), engine_(),
+  isRunning_(true) {
   TieToCore();
 
   SDL_Init(SDL_INIT_VIDEO);
@@ -49,6 +52,11 @@ SDLApplication::SDLApplication() :
 
   this->glCtx_ = SDL_GL_CreateContext(this->window_.get());
   this->engine_.Initialize();
+
+  Script::Lua lua;
+  lua.OpenLibraries();
+  lua.LoadFile("scripts/test.lua");
+  lua.PCall();
 }
 
 void SDLApplication::BorderToggle() {

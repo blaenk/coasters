@@ -1,7 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <unordered_map>
+#include <map>
+#include <vector>
 #include <SDL.h>
 
 #include "Chunk.h"
@@ -31,9 +32,8 @@ private:
   };
 
   double updateInterval_;
-  std::unordered_map<Action, SDL_Keysym> keyBinds_;
-  std::unordered_map<Action,
-                     std::vector<std::shared_ptr<EntityComponent>>> inputHandlers_;
+  std::map<Action, SDL_Keysym> keyBinds_;
+  std::map<Action, std::vector<std::shared_ptr<EntityComponent>>> inputHandlers_;
 };
 
 } // Game

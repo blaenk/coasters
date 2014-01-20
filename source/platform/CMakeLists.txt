@@ -15,16 +15,10 @@ set (PLATFORM_SRC
 # also CMAKE_SYSTEM_NAME is:
 #   Linux, Windows, Darwin
 
-if (WIN32)
-  set (PLATFORM_SRC ${PLATFORM_SRC} Application.h
-                                    ApplicationFactory.h
-                                    SDLApplication.h
-                                    SDLApplication.cpp)
-elseif (APPLE)
-  set (PLATFORM_SRC ${PLATFORM_SRC} MacApplication.cpp)
-elseif (UNIX)
-  set (PLATFORM_SRC ${PLATFORM_SRC} LinuxApplication.cpp)
-endif ()
+set (PLATFORM_SRC ${PLATFORM_SRC} Application.h
+                                  ApplicationFactory.h
+                                  SDLApplication.h
+                                  SDLApplication.cpp)
 
 add_library (platform STATIC ${PLATFORM_SRC})
 target_link_libraries (platform engine)

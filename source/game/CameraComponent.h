@@ -29,7 +29,7 @@ public:
   const glm::vec3& up() const;
   const glm::vec3& look() const;
 
-  void CameraComponent::moveForward();
+  void moveForward();
 
   std::shared_ptr<glm::mat4> projection() {
     return projection_;

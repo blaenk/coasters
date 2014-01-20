@@ -4,7 +4,7 @@ project (COASTERS)
 # set (CMAKE_VERBOSE_MAKEFILE on)
 
 # for configuration dependence
-set (CMAKE_BUILD_TYPE Debug)
+# set (CMAKE_BUILD_TYPE Debug)
 # target_link_libraries (target DEBUG | RELEASE ${SRC})
 
 set (CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules)
@@ -29,7 +29,8 @@ else ()
   # Allow executable to find shared libraries
   # in the same directory as the executable ($ORIGIN)
   # this prevents having to install libraries to system-searchable paths
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,-rpath,$ORIGIN")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--disable-new-dtags")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath,'$ORIGIN'")
 endif ()
 
 if (WIN32)

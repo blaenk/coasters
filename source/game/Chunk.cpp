@@ -28,12 +28,13 @@ bool Chunk::isValidCoordinate(BlockCoordinate &coordinate) {
 void Chunk::Fill() {
   //int dim = std::get<1>(this->chunkDimensions_);
   float dim = 0.5f;
-  this->AddFace(std::make_tuple(0, 0, 0), Facing::Left, dim);
-  this->AddFace(std::make_tuple(0, 0, 0), Facing::Right, dim);
-  this->AddFace(std::make_tuple(0, 0, 0), Facing::Up, dim);
-  this->AddFace(std::make_tuple(0, 0, 0), Facing::Down, dim);
-  this->AddFace(std::make_tuple(0, 0, 0), Facing::Back, dim);
-  this->AddFace(std::make_tuple(0, 0, 0), Facing::Front, dim);
+  auto coord = std::make_tuple(0, 0, 0);
+  this->AddFace(coord, Facing::Left, dim);
+  this->AddFace(coord, Facing::Right, dim);
+  this->AddFace(coord, Facing::Up, dim);
+  this->AddFace(coord, Facing::Down, dim);
+  this->AddFace(coord, Facing::Back, dim);
+  this->AddFace(coord, Facing::Front, dim);
 
   auto mesh_component = this->GetComponent<MeshComponent>("mesh").lock();
 
