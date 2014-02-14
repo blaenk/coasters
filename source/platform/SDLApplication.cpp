@@ -81,6 +81,10 @@ void SDLApplication::BorderToggle() {
     AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
     this->isBorderless_ = !this->isBorderless_;
   }
+#else
+  // TODO: remove windows-specific one? what advantages does it have?
+  SDL_SetWindowBordered(this->window_.get(), static_cast<SDL_bool>(this->isBorderless_));
+  this->isBorderless_ = !this->isBorderless_;
 #endif
 }
 
