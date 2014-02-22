@@ -2,7 +2,15 @@
 
 #include "script/Lua.h"
 
+#include <boost/predef.h>
 #include <SDL_syswm.h>
+#include <string>
+using std::string;
+
+#ifdef BOOST_OS_LINUX
+  #include <unistd.h>
+  #include <libgen.h>
+#endif
 
 namespace Coasters {
 namespace Platform {
@@ -20,6 +28,23 @@ void TieToCore() {
   affinity_mask = (ULONG_PTR)1 << 0;
   if (affinity_mask & process_affinity_mask)
     SetThreadAffinityMask(GetCurrentThread(), affinity_mask);
+#endif
+}
+
+string Path() {
+#ifdef BOOST_OS_LINUX
+  char linkname[4096];
+  ssize_t r = readlink("/proc/self/exe", linkname, 4096);
+
+  if (r == -1)
+    exit(EXIT_FAILURE);
+
+  char *path = new char[r + 1];
+  strncpy(path, linkname, r + 1);
+
+  return dirname(path);
+#else
+  return "ERROR";
 #endif
 }
 
@@ -55,37 +80,13 @@ SDLApplication::SDLApplication() :
 
   Script::Lua lua;
   lua.OpenLibraries();
-  lua.LoadFile("scripts/test.lua");
+  lua.LoadFile(Path() + "/scripts/test.lua");
   lua.PCall();
 }
 
 void SDLApplication::BorderToggle() {
-  SDL_SysWMinfo info;
-  SDL_VERSION(&info.version);
-  SDL_GetWindowWMInfo(this->window_.get(), &info);
-#ifdef WIN32
-  HWND hwnd = info.info.win.window;
-
-  if (!this->isBorderless_) {
-    SetWindowLongPtr(hwnd, GWL_STYLE,
-                     WS_SYSMENU | WS_POPUP | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE);
-    this->isBorderless_ = !this->isBorderless_;
-  } else {
-    RECT rect;
-    rect.left = 0;
-    rect.top = 0;
-    rect.right = 800;
-    rect.bottom = 600;
-
-    SetWindowLongPtr(hwnd, GWL_STYLE, WS_OVERLAPPEDWINDOW | WS_VISIBLE);
-    AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
-    this->isBorderless_ = !this->isBorderless_;
-  }
-#else
-  // TODO: remove windows-specific one? what advantages does it have?
   SDL_SetWindowBordered(this->window_.get(), static_cast<SDL_bool>(this->isBorderless_));
   this->isBorderless_ = !this->isBorderless_;
-#endif
 }
 
 void SDLApplication::FSToggle() {

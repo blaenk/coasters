@@ -4,7 +4,7 @@ project (COASTERS)
 # set (CMAKE_VERBOSE_MAKEFILE on)
 
 # for configuration dependence
-# set (CMAKE_BUILD_TYPE Debug)
+set (CMAKE_BUILD_TYPE Debug)
 # target_link_libraries (target DEBUG | RELEASE ${SRC})
 
 set (CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules)
@@ -18,19 +18,19 @@ set (SOURCE       ${PROJECT_SOURCE_DIR}/source)
 
 # use clang on posix platforms
 if (WIN32)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
 else ()
-  set(CMAKE_C_COMPILER   "clang")
-  set(CMAKE_CXX_COMPILER "clang++")
+  set (CMAKE_C_COMPILER   "clang")
+  set (CMAKE_CXX_COMPILER "clang++")
 
   # C++11 goodness
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
   # Allow executable to find shared libraries
   # in the same directory as the executable ($ORIGIN)
   # this prevents having to install libraries to system-searchable paths
-  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--disable-new-dtags")
-  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath,'$ORIGIN'")
+  set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--disable-new-dtags")
+  set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath,'$ORIGIN'")
 endif ()
 
 if (WIN32)
@@ -79,6 +79,12 @@ if (WIN32)
 else (WIN32)
   find_package (LuaJIT)
 endif (WIN32)
+
+find_package (Boost 1.55.0 REQUIRED)
+
+if (Boost_FOUND)
+  message (STATUS "Found Boost")
+endif ()
 
 # dependencies
 # find_package (protobuf)

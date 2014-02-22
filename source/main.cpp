@@ -2,12 +2,10 @@
 #include <SDL_main.h>
 #include <SDL.h>
 
-#include "platform/Application.h"
-#include "platform/ApplicationFactory.h"
+#include "platform/SDLApplication.h"
 
-using Coasters::Platform::Application;
-using Coasters::Platform::ApplicationFactory;
+using Coasters::Platform::SDLApplication;
 
 int main(int argc, char *argv[]) {
-  return ApplicationFactory::CreateApplication()->Run();
+  return (new SDLApplication)->Run();
 }

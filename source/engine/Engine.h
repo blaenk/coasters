@@ -7,8 +7,6 @@
 #include <memory>
 #include <unordered_map>
 
-#include "platform/Application.h"
-
 // components
 #include "input/Input.h"
 #include "graphics/GLRenderer.h"

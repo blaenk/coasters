@@ -8,16 +8,12 @@
 # http://gamedev.stackexchange.com/questions/195/any-tips-for-creating-cross-platform-games/212#212
 
 # add source files
-set (PLATFORM_SRC
-     Application.cpp
-     ApplicationFactory.cpp)
+set (PLATFORM_SRC)
 
 # also CMAKE_SYSTEM_NAME is:
 #   Linux, Windows, Darwin
 
-set (PLATFORM_SRC ${PLATFORM_SRC} Application.h
-                                  ApplicationFactory.h
-                                  SDLApplication.h
+set (PLATFORM_SRC ${PLATFORM_SRC} SDLApplication.h
                                   SDLApplication.cpp)
 
 add_library (platform STATIC ${PLATFORM_SRC})

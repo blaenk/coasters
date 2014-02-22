@@ -4,18 +4,17 @@
 #include <memory>
 #include <SDL.h>
 
-#include "Application.h"
 #include "engine/Engine.h"
 
 namespace Coasters {
 namespace Platform {
 
-class SDLApplication : public Application {
+class SDLApplication {
 public:
   SDLApplication();
   ~SDLApplication();
 
-  int Run() override;
+  int Run();
   void UpdateClock();
   void ProcessEvents();
 
