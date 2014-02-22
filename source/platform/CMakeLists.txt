@@ -13,8 +13,8 @@ set (PLATFORM_SRC)
 # also CMAKE_SYSTEM_NAME is:
 #   Linux, Windows, Darwin
 
-set (PLATFORM_SRC ${PLATFORM_SRC} SDLApplication.h
-                                  SDLApplication.cpp)
+set (PLATFORM_SRC ${PLATFORM_SRC} Application.h
+                                  Application.cpp)
 
 add_library (platform STATIC ${PLATFORM_SRC})
 target_link_libraries (platform engine)

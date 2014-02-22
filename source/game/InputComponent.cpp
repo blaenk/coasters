@@ -14,7 +14,7 @@ void InputComponent::Submit() {
 
 void InputComponent::Bind(SDL_Keycode key, std::function<void ()> func) {
   printf("bound\n");
-  Engine::Services::inputService->Bind(key, func);
+  Engine::Services::input->Bind(key, func);
 }
 
 void InputComponent::PostInitialize() {}

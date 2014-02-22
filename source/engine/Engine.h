@@ -13,7 +13,6 @@
 #include "game/Game.h"
 
 namespace Coasters {
-namespace Graphics { class Mesh; }
 namespace Engine {
 
 class InputService {
@@ -58,8 +57,8 @@ private:
 };
 
 namespace Services {
-  extern RendererService *rendererService;
-  extern InputService *inputService;
+  extern Graphics::Renderer *renderer;
+  extern Input::Input *input;
 } // services
 
 class Engine {

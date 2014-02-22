@@ -8,7 +8,9 @@
 namespace Coasters {
 namespace Engine {
   class Engine;
-  class Event; }
+  class Event;
+}
+
 namespace Graphics {
 
 class Mesh;

@@ -1,5 +1,5 @@
-#ifndef SDL_APPLICATION_H
-#define SDL_APPLICATION_H
+#ifndef APPLICATION_H
+#define APPLICATION_H
 
 #include <memory>
 #include <SDL.h>
@@ -9,10 +9,10 @@
 namespace Coasters {
 namespace Platform {
 
-class SDLApplication {
+class Application {
 public:
-  SDLApplication();
-  ~SDLApplication();
+  Application(int argc, char *argv[]);
+  ~Application();
 
   int Run();
   void UpdateClock();

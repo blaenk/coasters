@@ -1,9 +1,7 @@
-#include "SDLApplication.h"
-
-#include "script/Lua.h"
+#include "Application.h"
 
 #include <boost/predef.h>
-#include <SDL_syswm.h>
+
 #include <string>
 using std::string;
 
@@ -12,11 +10,13 @@ using std::string;
   #include <libgen.h>
 #endif
 
+#include "script/Lua.h"
+
 namespace Coasters {
 namespace Platform {
 
 void TieToCore() {
-#if defined(WIN32) || defined(_WINDOWS)
+#if BOOST_OS_WINDOWS
   ULONG_PTR affinity_mask;
   ULONG_PTR process_affinity_mask;
   ULONG_PTR system_affinity_mask;
@@ -48,12 +48,11 @@ string Path() {
 #endif
 }
 
-SDLApplication::SDLApplication() :
+Application::Application(int argc, char *argv[]) :
   window_(nullptr, SDL_DestroyWindow), glCtx_(0),
   isFullscreen_(false), isBorderless_(false), engine_(),
   isRunning_(true) {
   TieToCore();
-
   SDL_Init(SDL_INIT_VIDEO);
 
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -84,12 +83,12 @@ SDLApplication::SDLApplication() :
   lua.PCall();
 }
 
-void SDLApplication::BorderToggle() {
+void Application::BorderToggle() {
   SDL_SetWindowBordered(this->window_.get(), static_cast<SDL_bool>(this->isBorderless_));
   this->isBorderless_ = !this->isBorderless_;
 }
 
-void SDLApplication::FSToggle() {
+void Application::FSToggle() {
   if (!this->isFullscreen_) {
     SDL_SetWindowFullscreen(this->window_.get(), SDL_WINDOW_FULLSCREEN_DESKTOP);
     SDL_SetWindowGrab(this->window_.get(), SDL_TRUE);
@@ -102,7 +101,7 @@ void SDLApplication::FSToggle() {
   }
 }
 
-void SDLApplication::UpdateClock() {
+void Application::UpdateClock() {
   double current = static_cast<double>(SDL_GetPerformanceCounter()) / SDL_GetPerformanceFrequency();
   double delta = current - this->time_;
 
@@ -113,7 +112,7 @@ void SDLApplication::UpdateClock() {
   this->lag_ += delta;
 }
 
-void SDLApplication::ProcessEvents() {
+void Application::ProcessEvents() {
   SDL_Event event;
 
   while (SDL_PollEvent(&event)) {
@@ -136,11 +135,11 @@ void SDLApplication::ProcessEvents() {
       }
     }
 
-    Engine::Services::inputService->feedEvent(event);
+    Engine::Services::input->feedEvent(event);
   }
 }
 
-int SDLApplication::Run() {
+int Application::Run() {
   while (this->isRunning_) {
     this->ProcessEvents();
     this->UpdateClock();
@@ -153,7 +152,7 @@ int SDLApplication::Run() {
   return 0;
 }
 
-SDLApplication::~SDLApplication() {
+Application::~Application() {
   SDL_GL_DeleteContext(this->glCtx_);
   SDL_Quit();
 }

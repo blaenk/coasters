@@ -6,8 +6,8 @@ namespace Coasters {
 namespace Engine {
 
 namespace Services {
-  RendererService *rendererService = nullptr;
-  InputService *inputService = nullptr;
+  Graphics::Renderer *renderer = nullptr;
+  Input::Input *input = nullptr;
 }
 
 Engine::Engine() :
@@ -16,8 +16,8 @@ Engine::Engine() :
 
 void Engine::Initialize() {
   bool res = this->renderer_.Initialize();
-  Services::rendererService = new RendererService(&renderer_);
-  Services::inputService = new InputService(&input_);
+  Services::renderer = &renderer_;
+  Services::input = &input_;
   this->game_.Initialize();
 }
 

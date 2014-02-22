@@ -44,8 +44,8 @@ bool CameraComponent::Initialize() {
 }
 
 void CameraComponent::Submit() {
-  Engine::Services::rendererService->registerView(view_);
-  Engine::Services::rendererService->registerProjection(projection_);
+  Engine::Services::renderer->registerView(view_);
+  Engine::Services::renderer->registerProjection(projection_);
 }
 
 void CameraComponent::PostInitialize() {}

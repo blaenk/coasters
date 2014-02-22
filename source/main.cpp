@@ -1,11 +1,10 @@
-#include <memory>
 #include <SDL_main.h>
 #include <SDL.h>
 
-#include "platform/SDLApplication.h"
-
-using Coasters::Platform::SDLApplication;
+#include "platform/Application.h"
+using Coasters::Platform::Application;
 
 int main(int argc, char *argv[]) {
-  return (new SDLApplication)->Run();
+  Application app(argc, argv);
+  return app.Run();
 }

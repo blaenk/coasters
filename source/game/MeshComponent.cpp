@@ -10,7 +10,7 @@ bool MeshComponent::Initialize() {
 }
 
 void MeshComponent::Submit() {
-  Engine::Services::rendererService->registerMesh(mesh_);
+  Engine::Services::renderer->registerMesh(mesh_);
 }
 
 void MeshComponent::PostInitialize() {}
