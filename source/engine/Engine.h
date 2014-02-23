@@ -15,47 +15,6 @@
 namespace Coasters {
 namespace Engine {
 
-class InputService {
-public:
-  InputService(Input::Input *input) :
-    input_(input) {}
-
-  template <class T>
-  void feedEvent(T&& event) {
-    input_->feedEvent(std::forward<T>(event));
-  }
-
-  template <class T>
-  void Bind(SDL_Keycode key, T&& func) {
-    input_->Bind(key, std::forward<T>(func));
-  }
-private:
-  Input::Input *input_;
-};
-
-class RendererService {
-public:
-  RendererService(Graphics::Renderer *renderer) :
-    renderer_(renderer) {}
-
-  template <class T>
-  void registerMesh(T&& mesh) {
-    renderer_->registerMesh(std::forward<T>(mesh));
-  }
-
-  template <class T>
-  void registerView(T&& view) {
-    renderer_->registerView(std::forward<T>(view));
-  }
-
-  template <class T>
-  void registerProjection(T&& projection) {
-    renderer_->registerProjection(std::forward<T>(projection));
-  }
-private:
-  Graphics::Renderer *renderer_;
-};
-
 namespace Services {
   extern Graphics::Renderer *renderer;
   extern Input::Input *input;

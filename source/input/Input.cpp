@@ -5,10 +5,18 @@
 namespace Coasters {
 namespace Input {
 
-Input::Input() {}
-
+// SDL_Event is a tagged union on .type
 void Input::feedEvent(SDL_Event event) {
-  for (auto handler : keyHandlers_[event.key.keysym.sym])
+  if (event.type != SDL_KEYDOWN)
+    return;
+
+  auto handlers = keyHandlers_.find(event.key.keysym.sym);
+
+  if (handlers == keyHandlers_.end()) {
+    return;
+  }
+
+  for (auto handler : handlers->second)
     handler();
 }
 

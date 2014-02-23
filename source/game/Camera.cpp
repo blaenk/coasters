@@ -15,7 +15,7 @@ Camera::Camera() :
 
     auto input = std::make_shared<InputComponent>();
     input->Initialize();
-    input->Bind('W', &Camera::moveForward);
+    // input->Bind('W', &Camera::moveForward);
     // input->Bind('A', &Camera::strafeLeft);
     // input->Bind('S', &Camera::moveBackward);
     // input->Bind('D', &Camera::strafeRight);
