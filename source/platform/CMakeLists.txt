@@ -1,18 +1,3 @@
-# how is this handled? add the specific platform
-# on a per-platform basis?
-
-# another option is to define platform-agnostic headers with
-# platform-specific implementation (cpp) files, build system
-# chooses appropriate one on a per-system basis
-# TODO: But then how is instance data handled?
-# http://gamedev.stackexchange.com/questions/195/any-tips-for-creating-cross-platform-games/212#212
-
-# add source files
-set (PLATFORM_SRC)
-
-# also CMAKE_SYSTEM_NAME is:
-#   Linux, Windows, Darwin
-
 set (PLATFORM_SRC ${PLATFORM_SRC} Application.h
                                   Application.cpp)
 
