@@ -12,7 +12,8 @@ namespace Services {
 
 Engine::Engine() :
   renderer_(),
-  game_(120) {}
+  game_(120),
+  input_() {}
 
 void Engine::Initialize() {
   bool res = this->renderer_.Initialize();

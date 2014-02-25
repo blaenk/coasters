@@ -15,8 +15,6 @@ namespace Input {
 
 class Input {
 public:
-  Input();
-
   void feedEvent(SDL_Event event);
   void Bind(SDL_Keycode key, std::function<void ()> func);
 private:

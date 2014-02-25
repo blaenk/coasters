@@ -72,7 +72,7 @@ Application::Application(int argc, char *argv[]) :
                                        SDL_WINDOWPOS_UNDEFINED,
                                        SDL_WINDOWPOS_UNDEFINED,
                                        800, 600,
-                                       SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN));
+                                       SDL_WINDOW_OPENGL));
 
   this->glCtx_ = SDL_GL_CreateContext(this->window_.get());
   this->engine_.Initialize();
